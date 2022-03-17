@@ -41,11 +41,10 @@ func exampleUpdateSelect() {
 	//select without tx
 	qry := `select name, autor from books`
 	rows, err := db.Query(qry)
+	defer rows.Close()
 	if err != nil {
 		log.Fatal(err)
 	}
-	//defer rows.Close()
-
 	for rows.Next() {
 		var book Book
 		errScan := rows.Scan(&book.Name, &book.Autor)
